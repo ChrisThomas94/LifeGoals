@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Life Goals</string>
+    <string name="enterGoalsPlaceholderText">Enter a goal&#8230;</string>
+    <string name="enterGoalsSubmitButtonText">Submit Goals</string>
+    <string name="action_settings">Settings</string>
+    <string name="large_text">large text</string>
+
+    <string name="welcomeNext">Next</string>
+    <string name="welcomeSkip">Skip</string>
+    <string name="welcome_slide1_title">Welcome 1</string>
+    <string name="welcome_slide2_title">Welcome 2</string>
+    <string name="welcome_slide3_title">Welcome 3</string>
+    <string name="welcome_slide1_desc">Description 1</string>
+    <string name="welcome_slide2_desc">Description 2</string>
+    <string name="welcome_slide3_desc">Description 3</string>
+
+    <!-- Tutorial Strings -->
+    <string name="activity_title_home">Goals</string>
+    <string name="msg_no_goals">No goals found!</string>
+    <string name="lbl_new_goal_title">New Goal</string>
+    <string name="lbl_edit_goal_title">Edit Goal</string>
+    <string name="hint_enter_goal">Enter your goal!</string>
+
+</resources>

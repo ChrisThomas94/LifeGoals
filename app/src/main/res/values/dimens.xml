@@ -1,0 +1,26 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="welcome_dots_margin">16dp</dimen>
+    <dimen name="welcome_dots_height">16dp</dimen>
+    <dimen name="welcome_slide_title_text_size">16sp</dimen>
+    <dimen name="welcome_slide_desc_text_size">16sp</dimen>
+    <dimen name="welcome_slide_desc_padding">16dp</dimen>
+    <dimen name="welcome_slide_image_height">100dp</dimen>
+    <dimen name="welcome_slide_image_width">100dp</dimen>
+
+    <!-- Tutorial Dimens -->
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="dot_margin_right">10dp</dimen>
+    <dimen name="msg_no_goals">26sp</dimen>
+    <dimen name="margin_top_no_goals">120dp</dimen>
+    <dimen name="lbl_new_goal_title">20sp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+    <dimen name="input_new_goal">20sp</dimen>
+    <dimen name="dot_height">30dp</dimen>
+    <dimen name="dot_text_size">40sp</dimen>
+    <dimen name="timestamp">14sp</dimen>
+    <dimen name="goal_list_text">18sp</dimen>
+</resources>
