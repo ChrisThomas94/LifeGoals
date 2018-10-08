@@ -96,10 +96,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Goals goalsDB = new Goals();
-                goalsDB.setId(cursor.getInt(cursor.getColumnIndex(Goals.COLUMN_ID)));
-                goalsDB.setGoal(cursor.getString(cursor.getColumnIndex(Goals.COLUMN_GOAL)));
-                goalsDB.setTimestamp(cursor.getString(cursor.getColumnIndex(Goals.COLUMN_TIMESTAMP)));
+                Goals goalsDB = new Goals(cursor.getInt(cursor.getColumnIndex(Goals.COLUMN_ID))
+                        ,cursor.getString(cursor.getColumnIndex(Goals.COLUMN_GOAL))
+                        ,cursor.getString(cursor.getColumnIndex(Goals.COLUMN_TIMESTAMP)));
 
                 goals.add(goalsDB);
             } while (cursor.moveToNext());

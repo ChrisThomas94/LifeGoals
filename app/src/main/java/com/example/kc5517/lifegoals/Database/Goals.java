@@ -3,7 +3,6 @@ package com.example.kc5517.lifegoals.Database;
 public class Goals {
 
     public static final String TABLE_NAME = "goals";
-
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_GOAL = "goal";
     public static final String COLUMN_TIMESTAMP = "timestamp";
@@ -20,9 +19,6 @@ public class Goals {
                     + COLUMN_GOAL + " TEXT,"
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
-
-    public Goals() {
-    }
 
     public Goals(int id, String goal, String timestamp) {
         this.id = id;

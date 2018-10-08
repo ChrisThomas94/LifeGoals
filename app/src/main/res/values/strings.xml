@@ -1,10 +1,12 @@
 <resources>
+    <!-- General Strings -->
     <string name="app_name">Life Goals</string>
     <string name="enterGoalsPlaceholderText">Enter a goal&#8230;</string>
     <string name="enterGoalsSubmitButtonText">Submit Goals</string>
     <string name="action_settings">Settings</string>
     <string name="large_text">large text</string>
 
+    <!-- Welcome Strings -->
     <string name="welcomeNext">Next</string>
     <string name="welcomeSkip">Skip</string>
     <string name="welcome_slide1_title">Welcome 1</string>

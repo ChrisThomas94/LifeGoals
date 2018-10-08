@@ -26,7 +26,6 @@ import com.example.kc5517.lifegoals.utils.RecyclerTouchListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
     private GoalsAdapter mAdapter;
     private List<Goals> goalsList = new ArrayList<>();
