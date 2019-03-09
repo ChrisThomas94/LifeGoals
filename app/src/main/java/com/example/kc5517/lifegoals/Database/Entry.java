@@ -1,14 +1,17 @@
 package com.example.kc5517.lifegoals.Database;
 
-public class Goals {
+import java.util.ArrayList;
+import java.util.List;
 
-    public static final String TABLE_NAME = "goals";
+public class Entry {
+
+    public static final String TABLE_NAME = "lifeGoals";
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_GOAL = "goal";
+    public static final String COLUMN_GOALS = "goals";
     public static final String COLUMN_TIMESTAMP = "timestamp";
 
     private int id;
-    private String goal;
+    private String goals;
     private String timestamp;
 
 
@@ -16,13 +19,13 @@ public class Goals {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + COLUMN_GOAL + " TEXT,"
+                    + COLUMN_GOALS + " TEXT,"
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
-    public Goals(int id, String goal, String timestamp) {
+    public Entry(int id, String goals, String timestamp) {
         this.id = id;
-        this.goal = goal;
+        this.goals = goals;
         this.timestamp = timestamp;
     }
 
@@ -30,12 +33,12 @@ public class Goals {
         return id;
     }
 
-    public String getGoal() {
-        return goal;
+    public String getGoals() {
+        return goals;
     }
 
-    public void setGoal(String goal) {
-        this.goal = goal;
+    public void setGoals(String goal) {
+        this.goals = goals;
     }
 
     public String getTimestamp() {

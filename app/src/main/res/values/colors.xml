@@ -37,4 +37,6 @@
     <color name="hint_enter_goal">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
     <color name="goal_list_text">#232323</color>
+    <color name="opaque">#00000000</color>
+
 </resources>

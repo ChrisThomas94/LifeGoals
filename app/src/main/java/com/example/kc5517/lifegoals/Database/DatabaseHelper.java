@@ -5,8 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import com.google.gson.Gson;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -27,14 +32,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         // create goals table
-        db.execSQL(Goals.CREATE_TABLE);
+        db.execSQL(Entry.CREATE_TABLE);
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + Goals.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Entry.TABLE_NAME);
 
         // Create tables again
         onCreate(db);
@@ -47,35 +52,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         // `id` and `timestamp` will be inserted automatically.
         // no need to add them
-        values.put(Goals.COLUMN_GOAL, goal);
+        values.put(Entry.COLUMN_GOALS, goal);
 
         // insert row
-        long id = db.insert(Goals.TABLE_NAME, null, values);
+        long id = db.insert(Entry.TABLE_NAME, null, values);
 
         // close db connection
         db.close();
+
+        Log.d("TAG :", "goal added");
 
         // return newly inserted row id
         return id;
     }
 
-    public Goals getGoals(long id) {
+    public Entry getGoals(long id) {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(Goals.TABLE_NAME,
-                new String[]{Goals.COLUMN_ID, Goals.COLUMN_GOAL, Goals.COLUMN_TIMESTAMP},
-                Goals.COLUMN_ID + "=?",
+        Cursor cursor = db.query(Entry.TABLE_NAME,
+                new String[]{Entry.COLUMN_ID, Entry.COLUMN_GOALS, Entry.COLUMN_TIMESTAMP},
+                Entry.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
         // prepare goals object
-        Goals goalDB = new Goals(
-                cursor.getInt(cursor.getColumnIndex(Goals.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(Goals.COLUMN_GOAL)),
-                cursor.getString(cursor.getColumnIndex(Goals.COLUMN_TIMESTAMP)));
+        Entry goalDB = new Entry(
+                cursor.getInt(cursor.getColumnIndex(Entry.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(Entry.COLUMN_GOALS)),
+                cursor.getString(cursor.getColumnIndex(Entry.COLUMN_TIMESTAMP)));
 
         // close the db connection
         cursor.close();
@@ -83,12 +90,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return goalDB;
     }
 
-    public List<Goals> getAllGoals() {
-        List<Goals> goals = new ArrayList<>();
+    public List<Entry> getAllGoals() {
+        List<Entry> entries = new ArrayList<>();
+
+        ArrayList<String> goals = new ArrayList<>(2);
+        goals.add(0, "test1");
+        goals.add(1,"test2");
+
+        Gson gson = new Gson();
+
+        String goalsString= gson.toJson(goals);
+
+        System.out.println("goalsString= " + goalsString);
+
+        Entry initGoal = new Entry(1, goalsString, "09/03/2019");
+        Entry goal2 = new Entry(2, goalsString, "10/03/2019");
+
+
+        entries.add(initGoal);
+        entries.add(goal2);
+
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + Goals.TABLE_NAME + " ORDER BY " +
-                Goals.COLUMN_TIMESTAMP + " DESC";
+        String selectQuery = "SELECT  * FROM " + Entry.TABLE_NAME + " ORDER BY " +
+                Entry.COLUMN_TIMESTAMP + " DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -96,11 +121,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Goals goalsDB = new Goals(cursor.getInt(cursor.getColumnIndex(Goals.COLUMN_ID))
-                        ,cursor.getString(cursor.getColumnIndex(Goals.COLUMN_GOAL))
-                        ,cursor.getString(cursor.getColumnIndex(Goals.COLUMN_TIMESTAMP)));
+                Entry entryDB = new Entry(cursor.getInt(cursor.getColumnIndex(Entry.COLUMN_ID))
+                        ,cursor.getString(cursor.getColumnIndex(Entry.COLUMN_GOALS))
+                        ,cursor.getString(cursor.getColumnIndex(Entry.COLUMN_TIMESTAMP)));
 
-                goals.add(goalsDB);
+                entries.add(entryDB);
             } while (cursor.moveToNext());
         }
 
@@ -108,13 +133,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         // return goals list
-        return goals;
+        return entries;
     }
 
     public int getGoalsCount() {
-        String countQuery = "SELECT  * FROM " + Goals.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + Entry.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+
+        Log.d("TAG :", "get all goals");
 
         int count = cursor.getCount();
         cursor.close();
@@ -123,21 +150,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int updateGoal(Goals goals) {
+    public int updateGoal(Entry entry) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Goals.COLUMN_GOAL, goals.getGoal());
+        values.put(Entry.COLUMN_GOALS, entry.getGoals());
 
         // updating row
-        return db.update(Goals.TABLE_NAME, values, Goals.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(goals.getId())});
+        return db.update(Entry.TABLE_NAME, values, Entry.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(entry.getId())});
     }
 
-    public void deleteGoal(Goals goals) {
+    public void deleteGoal(Entry entry) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Goals.TABLE_NAME, Goals.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(goals.getId())});
+        db.delete(Entry.TABLE_NAME, Entry.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(entry.getId())});
         db.close();
+    }
+
+    public void deleteAllGoals() {
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + Entry.TABLE_NAME + " ORDER BY " +
+                Entry.COLUMN_TIMESTAMP + " DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Entry entryDB = new Entry(cursor.getInt(cursor.getColumnIndex(Entry.COLUMN_ID))
+                        ,cursor.getString(cursor.getColumnIndex(Entry.COLUMN_GOALS))
+                        ,cursor.getString(cursor.getColumnIndex(Entry.COLUMN_TIMESTAMP)));
+
+                Log.d("TAG :", "goal deleted");
+
+                deleteGoal(entryDB);
+            } while (cursor.moveToNext());
+        }
+
+        // close db connection
+        db.close();
+    }
+
+    public boolean checkEntryToday() {
+        // get readable database as we are not inserting anything
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy / MM / dd ");
+        String strDate = "Current Date : " + mdformat.format(calendar.getTime());
+
+        Cursor cursor = db.query(Entry.TABLE_NAME,
+                new String[]{Entry.COLUMN_ID, Entry.COLUMN_GOALS, Entry.COLUMN_TIMESTAMP},
+                Entry.COLUMN_TIMESTAMP + "=?",
+                new String[]{String.valueOf(strDate)}, null, null, null, null);
+
+        if (cursor != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

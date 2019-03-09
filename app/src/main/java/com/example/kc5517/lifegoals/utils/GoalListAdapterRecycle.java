@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.view;
+package com.example.kc5517.lifegoals.utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,9 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.kc5517.lifegoals.Database.Goals;
 import com.example.kc5517.lifegoals.R;
 
 import java.text.ParseException;
@@ -16,54 +16,48 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.MyViewHolder> {
+public class GoalListAdapterRecycle extends RecyclerView.Adapter<GoalListAdapterRecycle.MyViewHolder> {
 
     private Context context;
-    private List<Goals> goalsList;
+    private List<String> goalList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView goal;
-        public TextView dot;
-        public TextView timestamp;
+        public EditText goal;
+        //public TextView dot;
 
         public MyViewHolder(View view) {
             super(view);
-            goal = view.findViewById(R.id.goal);
-            dot = view.findViewById(R.id.dot);
-            timestamp = view.findViewById(R.id.timestamp);
+            goal = view.findViewById(R.id.goalText);
+            //dot = view.findViewById(R.id.dot);
         }
     }
 
-
-    public GoalsAdapter(Context context, List<Goals> goalsList) {
+    public GoalListAdapterRecycle(Context context, List<String> goalList) {
         this.context = context;
-        this.goalsList = goalsList;
+        this.goalList = goalList;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.goals_list_row, parent, false);
+                .inflate(R.layout.adapter_goal, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Goals goals = goalsList.get(position);
+        String goal = goalList.get(position);
 
-        holder.goal.setText(goals.getGoal());
+        holder.goal.setText(goal);
 
         // Displaying dot from HTML character code
-        holder.dot.setText(Html.fromHtml("&#8226;"));
-
-        // Formatting and displaying timestamp
-        holder.timestamp.setText(formatDate(goals.getTimestamp()));
+        //holder.dot.setText(Html.fromHtml("&#8226;"));
     }
 
     @Override
     public int getItemCount() {
-        return goalsList.size();
+        return goalList.size();
     }
 
     /**

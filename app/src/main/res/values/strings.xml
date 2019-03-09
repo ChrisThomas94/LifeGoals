@@ -18,9 +18,16 @@
 
     <!-- Tutorial Strings -->
     <string name="activity_title_home">Goals</string>
-    <string name="msg_no_goals">No goals found!</string>
+    <string name="msg_no_goals">No entry found!</string>
     <string name="lbl_new_goal_title">New Goal</string>
     <string name="lbl_edit_goal_title">Edit Goal</string>
     <string name="hint_enter_goal">Enter your goal!</string>
+
+    <!-- Button Strings -->
+    <string name="clear_entries">Delete All Entries</string>
+
+    <!-- Setting Header Strings -->
+    <string name="management">Management</string>
+    <string name="preferences">User Preferences</string>
 
 </resources>

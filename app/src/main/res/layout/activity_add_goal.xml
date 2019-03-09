@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/adapter_goals"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false">
+
+    <LinearLayout
+        android:id="@+id/addGoalsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/clear_shadow"
+        android:padding="10dp"
+        android:layout_margin="30dp">
+
+        <EditText
+            android:id="@+id/goalDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xx/xx/xxxx"
+            android:focusable="false"
+            android:textSize="30sp"
+            android:layout_gravity="center"/>
+
+        <ListView
+            android:id="@+id/addGoalsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+    </LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/thin_tick"
+        android:scaleType="fitCenter"
+        android:elevation="5dp"
+        android:backgroundTint="@color/opaque"/>
+
+</RelativeLayout>
+
