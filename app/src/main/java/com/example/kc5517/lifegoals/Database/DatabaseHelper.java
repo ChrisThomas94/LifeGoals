@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertGoal(String goal) {
+    public long insertEntry(String goal) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -66,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public Entry getGoals(long id) {
+    public Entry getEntry(long id) {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -90,26 +90,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return goalDB;
     }
 
-    public List<Entry> getAllGoals() {
+    public List<Entry> getAllEntries() {
         List<Entry> entries = new ArrayList<>();
-
-        ArrayList<String> goals = new ArrayList<>(2);
-        goals.add(0, "test1");
-        goals.add(1,"test2");
-
-        Gson gson = new Gson();
-
-        String goalsString= gson.toJson(goals);
-
-        System.out.println("goalsString= " + goalsString);
-
-        Entry initGoal = new Entry(1, goalsString, "09/03/2019");
-        Entry goal2 = new Entry(2, goalsString, "10/03/2019");
-
-
-        entries.add(initGoal);
-        entries.add(goal2);
-
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + Entry.TABLE_NAME + " ORDER BY " +
@@ -136,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return entries;
     }
 
-    public int getGoalsCount() {
+    public int getEntriesCount() {
         String countQuery = "SELECT  * FROM " + Entry.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -168,7 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteAllGoals() {
+    public void deleteAllEntries() {
         // Select All Query
         String selectQuery = "SELECT  * FROM " + Entry.TABLE_NAME + " ORDER BY " +
                 Entry.COLUMN_TIMESTAMP + " DESC";
@@ -198,8 +180,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy / MM / dd ");
-        String strDate = "Current Date : " + mdformat.format(calendar.getTime());
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = mdformat.format(calendar.getTime());
 
         Cursor cursor = db.query(Entry.TABLE_NAME,
                 new String[]{Entry.COLUMN_ID, Entry.COLUMN_GOALS, Entry.COLUMN_TIMESTAMP},

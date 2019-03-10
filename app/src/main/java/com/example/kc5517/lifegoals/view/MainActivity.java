@@ -2,19 +2,19 @@ package com.example.kc5517.lifegoals.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,26 +23,28 @@ import android.widget.TextView;
 import com.example.kc5517.lifegoals.Database.DatabaseHelper;
 import com.example.kc5517.lifegoals.Database.Entry;
 import com.example.kc5517.lifegoals.R;
+import com.example.kc5517.lifegoals.utils.AppConfig;
 import com.example.kc5517.lifegoals.utils.EntryAdapter;
+import com.example.kc5517.lifegoals.utils.Goal;
+import com.example.kc5517.lifegoals.utils.GoalEntryAdapter;
+import com.example.kc5517.lifegoals.utils.GoalItemAdapter;
 import com.example.kc5517.lifegoals.utils.GoalListAdapter;
-import com.example.kc5517.lifegoals.utils.GoalListAdapterRecycle;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static android.view.KeyEvent.ACTION_DOWN;
-import static android.view.KeyEvent.KEYCODE_ENTER;
-
 public class MainActivity extends AppCompatActivity {
     private EntryAdapter entryAdapter;
     private GoalListAdapter goalAdapter;
+    private GoalEntryAdapter goalEntryAdapter;
+    private GoalItemAdapter goalItemAdapter;
+
     private ViewPager entryPager;
     private ListView goalListView;
+    private ArrayList<Goal> goalItemList;
     private List<Entry> entryList = new ArrayList<>();
     private ArrayList<String> goalList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
@@ -51,145 +53,203 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout mainLinear;
     private Menu optionsMenu;
     private Toolbar toolbar;
-    private boolean entryToday;
+    private boolean entryToday = false;
     private LinearLayout addGoalsLl;
     private EditText enterGoalEditText;
     Gson gson = new Gson();
+    private int goalMax;
+    boolean isFABOpen = false;
+    FloatingActionButton fab;
+    FloatingActionButton fabSubmit;
+    FloatingActionButton fabAdd;
 
     private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //coordinatorLayout = findViewById(R.id.coordinator_layout);
-        //recyclerView = findViewById(R.id.recycler_view);
-        //noGoalsView = findViewById(R.id.empty_goals_view);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy ");
         String today = mdformat.format(calendar.getTime());
 
-
         db = new DatabaseHelper(this);
 
-        entryList.addAll(db.getAllGoals());
+        entryList.addAll(db.getAllEntries());
+
+        Log.d("TAG :", "Number of entries: "+  db.getEntriesCount());
+
+        int numEntries = db.getEntriesCount();
 
         entryToday = db.checkEntryToday();
+
+        AppConfig config = new AppConfig();
+        goalMax = config.getGoalMax();
 
         Log.d("TAG :", "Entry "+ today + ": " + entryToday);
 
 
         //if entry today then show the full database of goals, if no entry for today then force user to enter goals before showing the full database
-        if(entryToday){
+        if(!entryToday || numEntries == 0){
             setContentView(R.layout.activity_add_goal);
             Log.d("TAG :", "activity add goal");
 
             addGoalsLl = findViewById(R.id.addGoalsLinearLayout);
             //enterGoalEditText = findViewById(R.id.enterGoalEditText);
             EditText goalDate = findViewById(R.id.goalDate);
-            com.getbase.floatingactionbutton.FloatingActionButton fab = findViewById(R.id.fab);
+            fab = findViewById(R.id.fab);
+            fabSubmit = findViewById(R.id.fabSubmit);
+            fabAdd = findViewById(R.id.fabAdd);
 
             goalDate.setText(today);
 
-            goalList = new ArrayList<>(10);
-            goalList.add(0, "I will...");
-            goalAdapter = new GoalListAdapter(this, goalList);
-            goalListView = findViewById(R.id.addGoalsList);
-            goalListView.setAdapter(goalAdapter);
+            //init goal item list
+            goalItemList = new ArrayList<Goal>();
+            Goal goal0 = new Goal(0, "");
+            goalItemList.add(0,goal0);
 
-            //enterGoalEditText.setOnKeyListener(enterListener);
-            fab.setOnClickListener(submitListener);
+            goalItemAdapter = new GoalItemAdapter(this, goalItemList);
+            goalListView = findViewById(R.id.addGoalsList);
+            goalListView.setAdapter(goalItemAdapter);
+
+            fab.setOnClickListener(expandListener);
+            fabSubmit.setOnClickListener(submitListener);
+            fabAdd.setOnClickListener(addListener);
+
+            fabSubmit.hide();
+            fabAdd.hide();
 
         }else{
-            setContentView(R.layout.activity_main);
-            entryAdapter = new EntryAdapter(getApplicationContext(), entryList);
-            Log.d("TAG :", "main activity");
-
-            mainLinear = findViewById(R.id.main_linear);
-            entryPager = findViewById(R.id.goalsViewPager);
-            entryPager.setAdapter(entryAdapter);
-
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            toggleEmptyGoals();
+            bootEntryHistory();
         }
 
-
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showGoalsDialog(false, null, -1);
-            }
-        });*/
-
-                /*RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
-        recyclerView.setAdapter(entryAdapter);*/
-
-        /**
-         * On long press on RecyclerView item, open alert dialog
-         * with options to choose
-         * Edit and Delete
-         * */
-        /*recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
-                recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-                showActionsDialog(position);
-            }
-        }));*/
     }
 
-    private EditText.OnKeyListener enterListener = new EditText.OnKeyListener(){
-        @Override
-        public boolean onKey(View view, int i, KeyEvent keyEvent){
-            //If the keyevent is a key-down event on the "enter" button
-            if ((keyEvent.getAction() == ACTION_DOWN) && (keyEvent.getKeyCode() == KEYCODE_ENTER)) {
-                Log.d("TAG :", "ENTER PRESSED");
+    private void bootEntryHistory(){
 
-                EditText et = new EditText(MainActivity.this);
-                et.setText("test");
-                et.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                addGoalsLl.addView(et);
+        entryList = new ArrayList<>();
+        entryList.addAll(db.getAllEntries());
 
-                return true;
-            }
-            return false;
-        }
-    };
+        setContentView(R.layout.activity_main);
+        entryAdapter = new EntryAdapter(getApplicationContext(), entryList);
+        Log.d("TAG :", "main activity");
 
-    private com.getbase.floatingactionbutton.FloatingActionButton.OnClickListener submitListener = new com.getbase.floatingactionbutton.FloatingActionButton.OnClickListener(){
+        mainLinear = findViewById(R.id.main_linear);
+        entryPager = findViewById(R.id.goalsViewPager);
+        entryPager.setPageTransformer(true, new ViewPagerStack());
+        entryPager.setAdapter(entryAdapter);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toggleEmptyGoals();
+    }
+
+    private FloatingActionButton.OnClickListener submitListener = new FloatingActionButton.OnClickListener(){
         @Override
         public void onClick(View view) {
 
-            Gson gson = new Gson();
+            //addGoalToList();
+            //add new blank goal item to list
+            //Goal goalNew = new Goal(goalItemList.size(), "");
+            //goalItemList.add(goalItemList.size(),goalNew);
 
-            String enteredGoals = gson.toJson(goalList);
+            //add new blank edit text to screen
+            goalItemAdapter.notifyDataSetChanged();
 
-            db.insertGoal(enteredGoals);
+            /*for(int i = 0; i < goalItemList.size(); i ++){
+                EditText editText = goalItemAdapter.getView(i, null, null).findViewById(R.id.goalText);
+                if (goalList.size() < goalItemList.size()) {
+                    goalList.add(i, editText.getText().toString());
+                } else {
+                    goalList.set(i, editText.getText().toString());
+                }
+            }*/
 
-            Snackbar.make(view, "Goal successfully added", 5);
+            if(goalItemList.size()== 0){
+                Snackbar entryAdded = Snackbar.make(addGoalsLl, "Entry successfully added", Snackbar.LENGTH_LONG);
+                entryAdded.show();
+            } else {
+                Snackbar entryAdded = Snackbar.make(addGoalsLl, "You must add a goal", Snackbar.LENGTH_LONG);
+                entryAdded.show();
 
-            setContentView(R.layout.activity_main);
-            entryAdapter = new EntryAdapter(getApplicationContext(), entryList);
-            Log.d("TAG :", "main activity");
+                fab.hide();
+                fabSubmit.hide();
+                fabAdd.hide();
 
-            mainLinear = findViewById(R.id.main_linear);
-            entryPager = findViewById(R.id.goalsViewPager);
-            entryPager.setAdapter(entryAdapter);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < goalItemList.size(); i++) {
+                            if (!goalItemList.get(i).getGoal().equals("")) {
+                                if (goalList.size() < goalItemList.size()) {
+                                    goalList.add(i, goalItemList.get(i).getGoal());
+                                } else {
+                                    goalList.set(i, goalItemList.get(i).getGoal());
+                                }
+                            }
+                        }
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            toggleEmptyGoals();
+                        Log.d("TAG :", "Goal 0 from list: " + goalList.get(0));
+
+                        Gson gson = new Gson();
+                        String enteredGoals = gson.toJson(goalList);
+
+                        db.insertEntry(enteredGoals);
+                        Log.d("TAG :", "Entry successfully added: " + enteredGoals);
+
+
+                        bootEntryHistory();
+                    }
+                }, 3000);
+            }
+
         }
     };
+
+    private FloatingActionButton.OnClickListener addListener = new FloatingActionButton.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+
+            addGoalToList();
+            Log.d("TAG :", "goal list size: " + goalItemList.size());
+
+        }
+    };
+
+    private FloatingActionButton.OnClickListener expandListener = new FloatingActionButton.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            if(!isFABOpen){
+                fabAdd.show();
+                fabSubmit.show();
+                showFABMenu();
+            } else {
+                closeFABMenu();
+            }
+        }
+    };
+
+    private void showFABMenu(){
+        isFABOpen=true;
+        fabSubmit.animate().translationY(-getResources().getDimension(R.dimen.standard_60));
+        fabAdd.animate().translationY(-getResources().getDimension(R.dimen.standard_120));
+    }
+
+    private void addGoalToList(){
+        //add new blank goal item to list
+        Goal goalNew = new Goal(goalItemList.size(), "");
+        goalItemList.add(goalItemList.size(),goalNew);
+
+        //add new blank edit text to screen
+        goalItemAdapter.notifyDataSetChanged();
+    }
+
+    private void closeFABMenu(){
+        isFABOpen=false;
+        fabSubmit.animate().translationY(0);
+        fabAdd.animate().translationY(0);
+    }
 
     /**
      * Inserting new goal in db
@@ -198,10 +258,10 @@ public class MainActivity extends AppCompatActivity {
     private void createGoal(String goal) {
         // inserting goal in db and getting
         // newly inserted goal id
-        long id = db.insertGoal(goal);
+        long id = db.insertEntry(goal);
 
         // get the newly inserted goal from db
-        Entry n = db.getGoals(id);
+        Entry n = db.getEntry(id);
 
         if (n != null) {
             // adding new goal to array list at 0 position
@@ -284,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
     private void toggleEmptyGoals() {
         // you can check entryList.size() > 0
 
-        if (db.getGoalsCount() > 0) {
+        if (db.getEntriesCount() > 0) {
             //noGoalsView.setVisibility(View.GONE);
         } else {
             //noGoalsView.setVisibility(View.VISIBLE);
@@ -315,5 +375,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class ViewPagerStack implements ViewPager.PageTransformer {
+        @Override
+        public void transformPage(View page, float position) {
+            if (position >= 0) {
+
+                page.setScaleX(0.9f - 0.05f * position);
+                page.setScaleY(0.9f);
+                page.setTranslationX(-page.getWidth() * position);
+                page.setTranslationY(30 * position);
+                page.setAlpha(1-position/2);
+            }
+        }
     }
 }

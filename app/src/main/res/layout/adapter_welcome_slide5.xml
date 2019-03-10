@@ -14,12 +14,12 @@
         <ImageView
             android:layout_width="@dimen/welcome_slide_image_width"
             android:layout_height="@dimen/welcome_slide_image_height"
-            android:src="@drawable/abacus"/>
+            android:src="@drawable/welcome5"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_slide1_title"
+            android:text="@string/welcome_slide5_title"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/welcome_slide_title_text_size"
             android:textStyle="bold" />
@@ -30,7 +30,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/welcome_slide_desc_padding"
             android:paddingRight="@dimen/welcome_slide_desc_padding"
-            android:text="@string/welcome_slide1_desc"
+            android:text="@string/welcome_slide5_desc"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/welcome_slide_desc_text_size" />

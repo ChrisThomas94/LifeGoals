@@ -32,8 +32,6 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setHomeButtonEnabled(true);
 
         PackageInfo pInfo = null;
         try {
@@ -67,7 +65,7 @@ public class AboutActivity extends AppCompatActivity {
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
-                .setImage(R.drawable.lightbulb)
+                .setImage(R.drawable.pen_writing)
                 .setDescription(" ")
                 .addItem(version)
                 .addEmail("chris.thomas94@hotmail.co.uk")

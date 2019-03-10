@@ -10,8 +10,9 @@
     <LinearLayout
         android:id="@+id/addGoalsLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:elevation="5dp"
         android:background="@drawable/clear_shadow"
         android:padding="10dp"
         android:layout_margin="30dp">
@@ -27,13 +28,49 @@
 
         <ListView
             android:id="@+id/addGoalsList"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </ListView>
 
     </LinearLayout>
 
-    <com.getbase.floatingactionbutton.FloatingActionButton
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/tick_line"
+        android:scaleType="centerCrop"
+        app:fab_size="normal"
+        android:elevation="10dp"
+        app:borderWidth="0dp"
+        android:tint="@color/welcome_slide_background"
+        android:background="@color/welcome_slide_background"
+        android:backgroundTint="@color/colorPrimaryLight"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:fab_size="normal"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/cross_line"
+        android:scaleType="centerCrop"
+        android:elevation="10dp"
+        app:borderWidth="0dp"
+        android:tint="@color/welcome_slide_background"
+        android:backgroundTint="@color/colorAccent"/>
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,10 +78,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/thin_tick"
-        android:scaleType="fitCenter"
-        android:elevation="5dp"
-        android:backgroundTint="@color/opaque"/>
+        android:src="@drawable/menu_lines"
+        android:scaleType="centerCrop"
+        app:fab_size="normal"
+        android:elevation="20dp"
+        app:borderWidth="0dp"
+        android:tint="@color/welcome_slide_background"
+        android:background="@color/welcome_slide_background"
+        android:backgroundTint="@color/colorPrimary"/>
 
 </RelativeLayout>
 

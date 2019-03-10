@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/goalRelativeContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:focusable="true"
     android:paddingBottom="@dimen/dimen_10"
     android:paddingLeft="@dimen/activity_margin"
     android:paddingRight="@dimen/activity_margin"
@@ -13,8 +15,11 @@
         android:id="@+id/goalText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="I will..."
+        android:imeOptions="actionNext"
         android:textColor="@color/goal_list_text"
-        android:textSize="@dimen/goal_list_text"/>
+        android:textSize="@dimen/goal_list_text" />
 
 </RelativeLayout>

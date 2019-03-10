@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/welcome_slide_background">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/welcome_slide_image_width"
+            android:layout_height="@dimen/welcome_slide_image_height"
+            android:src="@drawable/welcome4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_slide4_title"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/welcome_slide_title_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="@dimen/welcome_slide_desc_padding"
+            android:paddingRight="@dimen/welcome_slide_desc_padding"
+            android:text="@string/welcome_slide4_desc"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/welcome_slide_desc_text_size" />
+
+    </LinearLayout>
+
+</RelativeLayout>

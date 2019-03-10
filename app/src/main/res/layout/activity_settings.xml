@@ -35,6 +35,14 @@
                 android:textColor="#333333"
                 android:textSize="20dp" />
 
+            <TextView
+                android:id="@+id/dailyGoalMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Maximum Goals"
+                android:textColor="#333333"
+                android:textSize="20dp" />
 
         </LinearLayout>
 
