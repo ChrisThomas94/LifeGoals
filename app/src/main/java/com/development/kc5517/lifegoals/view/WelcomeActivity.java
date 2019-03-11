@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.view;
+package com.development.kc5517.lifegoals.view;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.kc5517.lifegoals.R;
-import com.example.kc5517.lifegoals.utils.PrefManager;
+import com.development.kc5517.lifegoals.R;
+import com.development.kc5517.lifegoals.utils.PrefManager;
 
 public class WelcomeActivity extends AppCompatActivity {
 

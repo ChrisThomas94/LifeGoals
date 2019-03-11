@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.utils;
+package com.development.kc5517.lifegoals.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.view;
+package com.development.kc5517.lifegoals.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,13 +16,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import com.example.kc5517.lifegoals.Database.DatabaseHelper;
-import com.example.kc5517.lifegoals.Database.Entry;
-import com.example.kc5517.lifegoals.R;
-import com.example.kc5517.lifegoals.utils.AppConfig;
-import com.example.kc5517.lifegoals.utils.EntryAdapter;
-import com.example.kc5517.lifegoals.utils.Goal;
-import com.example.kc5517.lifegoals.utils.GoalItemAdapter;
+import com.development.kc5517.lifegoals.Database.DatabaseHelper;
+import com.development.kc5517.lifegoals.Database.Entry;
+import com.development.kc5517.lifegoals.R;
+import com.development.kc5517.lifegoals.utils.AppConfig;
+import com.development.kc5517.lifegoals.utils.EntryAdapter;
+import com.development.kc5517.lifegoals.utils.Goal;
+import com.development.kc5517.lifegoals.utils.GoalItemAdapter;
 import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

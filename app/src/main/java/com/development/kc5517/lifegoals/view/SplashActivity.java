@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.view;
+package com.development.kc5517.lifegoals.view;
 
 import android.content.Intent;
 import android.os.Bundle;

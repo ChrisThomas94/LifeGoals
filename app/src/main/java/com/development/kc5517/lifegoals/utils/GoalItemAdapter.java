@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.utils;
+package com.development.kc5517.lifegoals.utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import com.example.kc5517.lifegoals.R;
+import com.development.kc5517.lifegoals.R;
 import java.util.ArrayList;
 
 public class GoalItemAdapter extends BaseAdapter {

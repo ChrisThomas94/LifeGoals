@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals;
+package com.development.kc5517.lifegoals;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

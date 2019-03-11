@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.utils;
+package com.development.kc5517.lifegoals.utils;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.example.kc5517.lifegoals.Database.Entry;
-import com.example.kc5517.lifegoals.R;
+import com.development.kc5517.lifegoals.Database.Entry;
+import com.development.kc5517.lifegoals.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;

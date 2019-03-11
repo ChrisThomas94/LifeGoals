@@ -1,7 +1,4 @@
-package com.example.kc5517.lifegoals.Database;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.development.kc5517.lifegoals.Database;
 
 public class Entry {
 

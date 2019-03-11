@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.utils;
+package com.development.kc5517.lifegoals.utils;
 
 public class AppConfig {
 

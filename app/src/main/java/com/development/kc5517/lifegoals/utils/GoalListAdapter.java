@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.utils;
+package com.development.kc5517.lifegoals.utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import com.example.kc5517.lifegoals.R;
-import com.example.kc5517.lifegoals.view.MainActivity;
+import com.development.kc5517.lifegoals.R;
+
 import java.util.ArrayList;
 import static android.view.KeyEvent.ACTION_DOWN;
 import static android.view.KeyEvent.KEYCODE_ENTER;

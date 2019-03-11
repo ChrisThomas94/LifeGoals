@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.view;
+package com.development.kc5517.lifegoals.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.kc5517.lifegoals.Database.DatabaseHelper;
-import com.example.kc5517.lifegoals.R;
-import java.util.Locale;
+import com.development.kc5517.lifegoals.Database.DatabaseHelper;
+import com.development.kc5517.lifegoals.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

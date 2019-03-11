@@ -1,4 +1,4 @@
-package com.example.kc5517.lifegoals.view;
+package com.development.kc5517.lifegoals.view;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,7 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import com.example.kc5517.lifegoals.R;
+import com.development.kc5517.lifegoals.R;
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 
