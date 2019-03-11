@@ -9,16 +9,20 @@
     <!-- Welcome Strings -->
     <string name="welcomeNext">Next</string>
     <string name="welcomeSkip">Skip</string>
+    <string name="welcomeEnd">Got it</string>
     <string name="welcome_slide1_title">Writing Goals</string>
     <string name="welcome_slide2_title">Goal Setting</string>
     <string name="welcome_slide3_title">Repetition</string>
     <string name="welcome_slide4_title">Target Something, Anything</string>
-    <string name="welcome_slide5_title">Stuck for ideas?</string>
-    <string name="welcome_slide1_desc">Writing down and visualising your goals is the first step to making them a reality. Hopefully this tool will help you realise your goals, big or small.</string>
-    <string name="welcome_slide2_desc">So you have an idea for a goal, is it SMART? Specific, Measurable, Attainable, Relevant, Timely.</string>
-    <string name="welcome_slide3_desc">Reciting your goals on a regular basis will help to keep you focused in achieving them.</string>
-    <string name="welcome_slide4_desc">Goals can change, whether you achieve a goal, and need a new one, or decide to take your life in another direction. Each day you have a new opportunity to set your goals to guide the direction of your life.</string>
-    <string name="welcome_slide5_desc">A good example of a life goal might be: "Organise a camping trip with old friends." The goal doesn\'t have to be world changing, but it does have to be something that would improve your life in either a social, financial, educational way. Now that I have chosen my goal I will write it down, now it\'s one step closer to becoming a reality. Tomorrow i might write it down again, then maybe the day after that. Eventually I might get sick of writing it down and decide to begin planning the trip and before I know it i will be camping with some old friends. See what writing your goals down will do for you.</string>
+    <string name="welcome_slide5_title">Security</string>
+    <string name="welcome_slide6_title">Stuck For Ideas?</string>
+
+    <string name="welcome_slide1_desc">Writing down your goals is a helpful way of visualising them and begin to make them a reality. Hopefully this simple app will help you realise your goals, big or small.</string>
+    <string name="welcome_slide2_desc">So, you have an idea for a goal.\n Is it SMART? \nSpecific\nMeasurable\nAttainable\nRelevant\nTimely.</string>
+    <string name="welcome_slide3_desc">Reciting your goals on a regular basis will help to keep you focused in achieving them.\nIt is common to recite your goals once per day, in the evening before bed or first thing in the morning.</string>
+    <string name="welcome_slide4_desc">We deliberately hide your previously entered goals until you make a new entry. This forces you to think about what you want to achieve each time you visit.</string>
+    <string name="welcome_slide5_desc">The goals you enter are stored privately on your personal device.</string>
+    <string name="welcome_slide6_desc">You don\'t have to set a goal that will change the world, but it does have to be something that you think will improve your life in either a social, financial, professional or educational way. \nE.g. Loose 10lbs this month.</string>
 
     <!-- Tutorial Strings -->
     <string name="activity_title_home">Goals</string>

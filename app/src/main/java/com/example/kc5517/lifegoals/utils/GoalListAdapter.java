@@ -8,15 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.example.kc5517.lifegoals.R;
 import com.example.kc5517.lifegoals.view.MainActivity;
-
 import java.util.ArrayList;
-
 import static android.view.KeyEvent.ACTION_DOWN;
 import static android.view.KeyEvent.KEYCODE_ENTER;
 
@@ -68,11 +62,14 @@ public class GoalListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         v = convertView;
         if (convertView == null) {
+
             //inflate the view for each row of listview
             v = inflator.inflate(R.layout.adapter_goal, null);
+
             //ViewHolder object to contain myadapter.xml elements
             vholder = new ViewHolder();
             vholder.goal = v.findViewById(R.id.goalText);
+
             //set holder to the view
             v.setTag(vholder);
 
@@ -81,15 +78,9 @@ public class GoalListAdapter extends BaseAdapter {
         }
 
         //getting MyItem Object for each position
-        //Goal item = (Goal) goals.get(position);
         //set the id to editetxt important line here as it will be helpful to set text according to position
         vholder.goal.setId(position);
-        //vholder.goal.setHint(goals.get(position));
         vholder.goal.setText(goals.get(position));
-
-        //setting the values from object to holder views for each row vholder.title.setText(item.getImageheading()); vholder.image.setImageResource(item.getImageid());
-        //vholder.goal.setOnFocusChangeListener(focusChangeListener);
-        //vholder.goal.setOnKeyListener(enterListener);
 
         return v;
     }

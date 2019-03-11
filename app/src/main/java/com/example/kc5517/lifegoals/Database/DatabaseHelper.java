@@ -92,6 +92,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Entry> getAllEntries() {
         List<Entry> entries = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = mdformat.format(calendar.getTime());
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + Entry.TABLE_NAME + " ORDER BY " +
@@ -102,13 +105,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
-            do {
-                Entry entryDB = new Entry(cursor.getInt(cursor.getColumnIndex(Entry.COLUMN_ID))
-                        ,cursor.getString(cursor.getColumnIndex(Entry.COLUMN_GOALS))
-                        ,cursor.getString(cursor.getColumnIndex(Entry.COLUMN_TIMESTAMP)));
 
-                entries.add(entryDB);
-            } while (cursor.moveToNext());
+            do {
+                boolean match = cursor.getString(cursor.getColumnIndex(Entry.COLUMN_TIMESTAMP)).substring(0, 10).equals(strDate);
+                if (match) {
+                    Entry entryDB = new Entry(cursor.getInt(cursor.getColumnIndex(Entry.COLUMN_ID))
+                            , cursor.getString(cursor.getColumnIndex(Entry.COLUMN_GOALS))
+                            , cursor.getString(cursor.getColumnIndex(Entry.COLUMN_TIMESTAMP)));
+
+                    entries.add(entryDB);
+                }
+                else {
+                    return entries;
+                }
+            }
+            while (cursor.moveToNext()) ;
         }
 
         // close db connection
@@ -123,24 +134,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
-        Log.d("TAG :", "get all goals");
+        Log.d("TAG :", "get all entries");
 
         int count = cursor.getCount();
         cursor.close();
 
         // return count
         return count;
-    }
-
-    public int updateGoal(Entry entry) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(Entry.COLUMN_GOALS, entry.getGoals());
-
-        // updating row
-        return db.update(Entry.TABLE_NAME, values, Entry.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(entry.getId())});
     }
 
     public void deleteGoal(Entry entry) {
@@ -175,23 +175,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean checkEntryToday() {
-        // get readable database as we are not inserting anything
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = mdformat.format(calendar.getTime());
-
-        Cursor cursor = db.query(Entry.TABLE_NAME,
-                new String[]{Entry.COLUMN_ID, Entry.COLUMN_GOALS, Entry.COLUMN_TIMESTAMP},
-                Entry.COLUMN_TIMESTAMP + "=?",
-                new String[]{String.valueOf(strDate)}, null, null, null, null);
-
-        if (cursor != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

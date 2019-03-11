@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.kc5517.lifegoals.R;
 import com.example.kc5517.lifegoals.utils.PrefManager;
 
@@ -49,10 +49,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_welcome);
 
-        viewPager = (ViewPager) findViewById(R.id.welcomeViewPager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        viewPager = findViewById(R.id.welcomeViewPager);
+        dotsLayout = findViewById(R.id.layoutDots);
+        btnSkip = findViewById(R.id.btn_skip);
+        btnNext = findViewById(R.id.btn_next);
 
 
         // layouts of all welcome sliders
@@ -61,7 +61,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.adapter_welcome_slide1,
                 R.layout.adapter_welcome_slide2,
                 R.layout.adapter_welcome_slide3,
-                R.layout.adapter_welcome_slide4};
+                R.layout.adapter_welcome_slide4,
+                R.layout.adapter_welcome_slide5,
+                R.layout.adapter_welcome_slide6};
 
 
         // adding bottom dots
@@ -136,7 +138,7 @@ public class WelcomeActivity extends AppCompatActivity {
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText(getString(R.string.welcomeSkip));
+                btnNext.setText(getString(R.string.welcomeEnd));
                 btnSkip.setVisibility(View.GONE);
             } else {
                 // still pages are left

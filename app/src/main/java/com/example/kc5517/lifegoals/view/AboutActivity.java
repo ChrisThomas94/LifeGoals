@@ -8,10 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.example.kc5517.lifegoals.R;
-
-
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 
@@ -32,6 +29,8 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeButtonEnabled(true);
 
         PackageInfo pInfo = null;
         try {
@@ -43,17 +42,7 @@ public class AboutActivity extends AppCompatActivity {
         Element version = new Element();
         version.setTitle("Version: " + pInfo.versionName);
 
-        /*Element projects = new Element();
-        projects.setTitle("Related Projects");
-        projects.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent projects = new Intent(getBaseContext(), ProjectsActivity.class);
-                startActivity(projects);
-            }
-        });*/
-
-        /*Element acknowledgements = new Element();
+        Element acknowledgements = new Element();
         acknowledgements.setTitle("Acknowledgements");
         acknowledgements.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +50,7 @@ public class AboutActivity extends AppCompatActivity {
                 Intent credits = new Intent(getBaseContext(), AcknowledgementsActivity.class);
                 startActivity(credits);
             }
-        });*/
+        });
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
@@ -69,14 +58,8 @@ public class AboutActivity extends AppCompatActivity {
                 .setDescription(" ")
                 .addItem(version)
                 .addEmail("chris.thomas94@hotmail.co.uk")
-                .addWebsite("www.wildswap.com")
-                .addFacebook("wildswap")
-                .addTwitter("WildSwap")
-                .addInstagram("wild_swap")
-                .addPlayStore("com.wildswap.wildswapapp")
                 .addGitHub("ChrisThomas94")
-                //.addItem(projects)
-                //.addItem(acknowledgements)
+                .addItem(acknowledgements)
                 .create();
 
         setContentView(aboutPage);

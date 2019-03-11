@@ -2,20 +2,13 @@ package com.example.kc5517.lifegoals.utils;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.example.kc5517.lifegoals.R;
-
-import java.security.Key;
 import java.util.ArrayList;
 
 public class GoalItemAdapter extends BaseAdapter {
@@ -77,10 +70,6 @@ public class GoalItemAdapter extends BaseAdapter {
             vholder = (ViewHolder) v.getTag();
         }
 
-        /*if(!goals.get(position).equals("")) {
-            vholder.goal.setText(goals.get(position).getGoal());
-        }*/
-
         //getting MyItem Object for each position
         Goal item = goals.get(position);
 
@@ -91,9 +80,6 @@ public class GoalItemAdapter extends BaseAdapter {
             item.setGoalId(position);
             Log.d("TAG :", "Goal Added to list " + vholder.goal.getText().toString());
         }
-
-        Log.d("TAG :", "Goal Item " + position + " " + item.getGoal());
-        Log.d("TAG :", "Edit Text " + position + " " + vholder.goal.getText().toString());
 
         return v;
     }
